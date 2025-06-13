@@ -1,0 +1,13 @@
+# Math Quiz Generator - Backend Dependencies
+# Core Flask framework
+Flask==2.3.2
+Werkzeug==2.3.6
+
+# CORS support for React frontend
+Flask-CORS==4.0.0
+
+# Production server (optional, for deployment)
+# gunicorn==21.2.0
+
+# Development dependencies (commented out for production)
+# flask-debugtoolbar==0.13.1

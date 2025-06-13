@@ -1,0 +1,37 @@
+version: '3.8'
+
+services:
+  backend:
+    build: ./backend
+    ports:
+      - "5000:5000"
+    environment:
+      - FLASK_ENV=production
+      - FLASK_DEBUG=False
+    volumes:
+      - ./backend:/app
+    networks:
+      - math-quiz-network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:5000/api/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  frontend:
+    build: ./frontend
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
+    networks:
+      - math-quiz-network
+    environment:
+      - REACT_APP_API_URL=http://localhost:5000
+
+networks:
+  math-quiz-network:
+    driver: bridge
+
+volumes:
+  backend_data:
