@@ -85,6 +85,35 @@ npm start
    - Get encouraging feedback
    - Take another quiz
 
+## Troubleshooting
+
+### Windows PowerShell Execution Policy Issues
+
+If you encounter errors when running the setup or start scripts, you may need to adjust your PowerShell execution policy:
+
+1. **Open PowerShell as Administrator:**
+   - Right-click on PowerShell and select "Run as Administrator"
+
+2. **Check current execution policy:**
+   ```powershell
+   Get-ExecutionPolicy
+   ```
+
+3. **If the policy is "Restricted", enable script execution:**
+   ```powershell
+   Set-ExecutionPolicy -ExecutionPolicy RemoteSigned
+   ```
+
+4. **Alternative: Run batch files directly from Command Prompt:**
+   - Open Command Prompt (cmd) instead of PowerShell
+   - Navigate to the project folder and run the `.bat` files
+
+### Common Issues
+
+- **"Python not found"**: Make sure Python is installed and added to your system PATH
+- **"Node.js not found"**: Make sure Node.js is installed and added to your system PATH
+- **Port already in use**: Close any applications using ports 3000 or 5000
+
 ## Project Structure
 
 ```
