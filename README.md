@@ -4,11 +4,16 @@ A modern web-based math quiz application with a React frontend and Python Flask 
 
 ## Features
 
-- 🎯 Customizable difficulty levels (1-5)
+- 🎯 **10 Difficulty Levels** with intelligent operation selection
+  - Levels 1-3: Basic addition & subtraction with smaller numbers
+  - Levels 4-5: Multiplication & division automatically included
+  - Levels 6-7: Square roots & exponents automatically included
+  - Levels 8-10: Expert level with all operations and large number ranges
 - 🔢 Variable number of questions (5-25)
 - ➕ Basic operations: Addition, Subtraction
-- ✖️ Advanced operations: Multiplication, Division (optional)
-- 🔺 Complex operations: Square roots, Exponents (optional)
+- ✖️ Advanced operations: Multiplication, Division
+- 🔺 Complex operations: Square roots, Exponents
+- 🧠 **Smart difficulty scaling** - Higher difficulties favor complex operations
 - 📊 Real-time progress tracking
 - 🎨 Modern, responsive UI with smooth animations
 - 📱 Works on desktop and mobile devices
@@ -71,9 +76,13 @@ npm start
 ## Usage
 
 1. **Configure your quiz:**
-   - Set difficulty level (1-5)
+   - Set difficulty level (1-10)
+     - **Levels 1-3**: Basic addition & subtraction
+     - **Levels 4-5**: Multiplication & division automatically included
+     - **Levels 6-7**: Square roots & exponents automatically included
+     - **Levels 8-10**: Expert level with maximum complexity
    - Choose number of questions (5-25)
-   - Select operation types
+   - Optionally force include advanced operations at lower levels
 
 2. **Take the quiz:**
    - Answer each math question

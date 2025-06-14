@@ -19,38 +19,78 @@ class QuizGenerator:
     def generate_question(self, difficulty, include_multdiv=False, include_sqrtexp=False):
         """Generate a single math question based on difficulty and operation types"""
         try:
-            # Validate difficulty
-            difficulty = max(1, min(5, difficulty))
+            # Validate difficulty (now supports 1-10)
+            difficulty = max(1, min(10, difficulty))
             
-            num1 = random.randint(1, difficulty * 50)
-            num2 = random.randint(1, difficulty * 50)
+            # Dynamic number ranges based on difficulty
+            if difficulty <= 2:
+                max_range = difficulty * 25
+            elif difficulty <= 5:
+                max_range = difficulty * 50
+            elif difficulty <= 7:
+                max_range = difficulty * 100
+            else:
+                max_range = difficulty * 200
             
-            operators = ['+', '-']
+            num1 = random.randint(1, max_range)
+            num2 = random.randint(1, max_range)
             
-            if include_multdiv:
+            # Dynamic operation selection based on difficulty
+            operators = []
+            operation_weights = []
+            
+            # Addition and subtraction (always available, but weight decreases with difficulty)
+            operators.extend(['+', '-'])
+            add_sub_weight = max(1, 10 - difficulty)  # Weight decreases from 10 to 1
+            operation_weights.extend([add_sub_weight, add_sub_weight])
+            
+            # Multiplication and division (auto-include at higher difficulties)
+            if include_multdiv or difficulty >= 4:
                 operators.extend(['*', '/'])
+                mult_div_weight = min(10, difficulty * 2)  # Weight increases with difficulty
+                operation_weights.extend([mult_div_weight, mult_div_weight])
             
-            if include_sqrtexp:
+            # Square roots and exponents (auto-include at higher difficulties)
+            if include_sqrtexp or difficulty >= 6:
                 operators.extend(['**', 'sqrt'])
+                sqrt_exp_weight = max(1, difficulty - 3)  # Weight increases significantly after difficulty 3
+                operation_weights.extend([sqrt_exp_weight, sqrt_exp_weight])
             
-            operator_choice = random.choice(operators)
-            
+            # Choose operator based on weights
+            operator_choice = random.choices(operators, weights=operation_weights)[0]
+              # Generate question based on operator
             if operator_choice == '/':
-                num1 *= num2  # Ensure division results in whole number
+                # Ensure division results in whole number
+                num1 = num2 * random.randint(1, max(1, max_range // num2))
             
             if operator_choice == '**':
-                if difficulty < 3:
-                    num1 = random.randint(1, difficulty * 2 + 1)
+                # Adjust exponent ranges based on difficulty
+                if difficulty <= 3:
+                    num1 = random.randint(1, difficulty * 3)
+                    num2 = random.randint(2, difficulty + 1)
+                elif difficulty <= 6:
+                    num1 = random.randint(1, difficulty * 5)
+                    num2 = random.randint(2, difficulty + 2)
                 else:
-                    num1 = random.randint(1, int(((difficulty**2) - (difficulty**2) % 2) / 2))
-                num2 = random.randint(0, difficulty + 1)
+                    num1 = random.randint(1, difficulty * 8)
+                    num2 = random.randint(2, min(difficulty, 6))  # Cap exponent to prevent overflow
+                
                 question = f"{num1}^{num2}"
                 answer = num1 ** num2
+                
             elif operator_choice == 'sqrt':
-                num1 = random.randint(1, difficulty * 5)
-                num1 **= 2
+                # Generate perfect squares for cleaner answers
+                if difficulty <= 3:
+                    base = random.randint(1, difficulty * 5)
+                elif difficulty <= 6:
+                    base = random.randint(1, difficulty * 8)
+                else:
+                    base = random.randint(1, difficulty * 12)
+                
+                num1 = base ** 2
                 question = f"√{num1}"
-                answer = math.sqrt(num1)
+                answer = float(base)
+                
             else:
                 question = f"{num1} {operator_choice} {num2}"
                 answer = eval(f"{num1} {operator_choice} {num2}")
@@ -85,10 +125,9 @@ def generate_quiz():
         
         if not data:
             raise BadRequest("No JSON data provided")
-        
-        # Validate and sanitize inputs
+          # Validate and sanitize inputs
         difficulty = int(data.get('difficulty', 1))
-        difficulty = max(1, min(5, difficulty))
+        difficulty = max(1, min(10, difficulty))  # Updated to support 1-10
         
         num_questions = int(data.get('numQuestions', 5))
         num_questions = max(1, min(50, num_questions))  # Reasonable limits

@@ -69,11 +69,27 @@ const SliderValue = styled.span`
   color: #667eea;
 `;
 
+const DifficultyInfo = styled.div`
+  font-size: 0.9rem;
+  color: #666;
+  margin-top: 0.5rem;
+  font-style: italic;
+`;
+
 function QuizSetup({ onStartQuiz }) {
   const [difficulty, setDifficulty] = useState(3);
   const [numQuestions, setNumQuestions] = useState(10);
   const [includeMultDiv, setIncludeMultDiv] = useState(false);
   const [includeSqrtExp, setIncludeSqrtExp] = useState(false);
+
+  const getDifficultyDescription = (level) => {
+    if (level <= 2) return "Basic addition & subtraction";
+    if (level <= 3) return "Larger numbers with basic operations";
+    if (level <= 5) return "Mixed operations start appearing";
+    if (level <= 7) return "More complex operations with larger ranges";
+    if (level <= 9) return "Advanced operations with challenging numbers";
+    return "Expert level - all operations with maximum complexity";
+  };
 
   const handleStart = () => {
     onStartQuiz({
@@ -85,16 +101,16 @@ function QuizSetup({ onStartQuiz }) {
   };
 
   return (
-    <SetupContainer>
-      <OptionGroup>
+    <SetupContainer>      <OptionGroup>
         <Label>Difficulty: <SliderValue>{difficulty}</SliderValue></Label>
         <Slider
           type="range"
           min="1"
-          max="5"
+          max="10"
           value={difficulty}
           onChange={(e) => setDifficulty(parseInt(e.target.value))}
         />
+        <DifficultyInfo>{getDifficultyDescription(difficulty)}</DifficultyInfo>
       </OptionGroup>
 
       <OptionGroup>
@@ -106,16 +122,14 @@ function QuizSetup({ onStartQuiz }) {
           value={numQuestions}
           onChange={(e) => setNumQuestions(parseInt(e.target.value))}
         />
-      </OptionGroup>
-
-      <OptionGroup>
+      </OptionGroup>      <OptionGroup>
         <CheckboxContainer>
           <Checkbox
             type="checkbox"
             checked={includeMultDiv}
             onChange={(e) => setIncludeMultDiv(e.target.checked)}
           />
-          <Label>Include Multiplication & Division</Label>
+          <Label>Include Multiplication & Division {difficulty >= 4 ? "(Auto-included at difficulty 4+)" : ""}</Label>
         </CheckboxContainer>
 
         <CheckboxContainer>
@@ -124,7 +138,7 @@ function QuizSetup({ onStartQuiz }) {
             checked={includeSqrtExp}
             onChange={(e) => setIncludeSqrtExp(e.target.checked)}
           />
-          <Label>Include Square Roots & Exponents</Label>
+          <Label>Include Square Roots & Exponents {difficulty >= 6 ? "(Auto-included at difficulty 6+)" : ""}</Label>
         </CheckboxContainer>
       </OptionGroup>
 
