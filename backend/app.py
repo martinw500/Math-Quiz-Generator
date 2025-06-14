@@ -55,10 +55,10 @@ class QuizGenerator:
                 operators.extend(['**', 'sqrt'])
                 sqrt_exp_weight = max(1, difficulty - 3)  # Weight increases significantly after difficulty 3
                 operation_weights.extend([sqrt_exp_weight, sqrt_exp_weight])
-            
-            # Choose operator based on weights
+              # Choose operator based on weights
             operator_choice = random.choices(operators, weights=operation_weights)[0]
-              # Generate question based on operator
+            
+            # Generate question based on operator
             if operator_choice == '/':
                 # Ensure division results in whole number
                 num1 = num2 * random.randint(1, max(1, max_range // num2))
@@ -75,7 +75,7 @@ class QuizGenerator:
                     num1 = random.randint(1, difficulty * 8)
                     num2 = random.randint(2, min(difficulty, 6))  # Cap exponent to prevent overflow
                 
-                question = f"{num1}^{num2}"
+                question = f"{num1}^{{{num2}}}"  # LaTeX format for superscript
                 answer = num1 ** num2
                 
             elif operator_choice == 'sqrt':
@@ -88,7 +88,7 @@ class QuizGenerator:
                     base = random.randint(1, difficulty * 12)
                 
                 num1 = base ** 2
-                question = f"√{num1}"
+                question = f"\\sqrt{{{num1}}}"  # LaTeX format for square root
                 answer = float(base)
                 
             else:

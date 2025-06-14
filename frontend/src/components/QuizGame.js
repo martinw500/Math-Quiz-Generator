@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import axios from 'axios';
+import MathExpression from './MathExpression';
 
 const GameContainer = styled.div`
   display: flex;
@@ -83,10 +84,9 @@ function QuizGame({ config, onFinish, onReset }) {
   const [score, setScore] = useState(0);
   const [loading, setLoading] = useState(true);
   const [showFeedback, setShowFeedback] = useState(false);
-
   useEffect(() => {
     generateQuiz();
-  }, []);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   const generateQuiz = async () => {
     try {
@@ -161,9 +161,8 @@ function QuizGame({ config, onFinish, onReset }) {
       </ProgressBar>
       
       <div>Question {currentQuestion + 1} of {questions.length}</div>
-      
-      <QuestionText>
-        {questions[currentQuestion]?.question}
+        <QuestionText>
+        <MathExpression expression={questions[currentQuestion]?.question} />
       </QuestionText>
       
       <AnswerInput

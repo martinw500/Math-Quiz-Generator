@@ -13,6 +13,7 @@ A modern web-based math quiz application with a React frontend and Python Flask 
 - ➕ Basic operations: Addition, Subtraction
 - ✖️ Advanced operations: Multiplication, Division
 - 🔺 Complex operations: Square roots, Exponents
+- 📐 **Mathematical Notation**: Proper display of exponents (2⁴) and square roots (√16) using MathJax
 - 🧠 **Smart difficulty scaling** - Higher difficulties favor complex operations
 - 📊 Real-time progress tracking
 - 🎨 Modern, responsive UI with smooth animations
@@ -24,6 +25,7 @@ A modern web-based math quiz application with a React frontend and Python Flask 
 - **React 18** - Modern UI framework
 - **Styled Components** - CSS-in-JS styling
 - **Axios** - HTTP client for API calls
+- **MathJax** - Mathematical notation rendering
 
 ### Backend
 - **Python 3.8+** - Core language
