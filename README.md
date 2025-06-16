@@ -1,6 +1,6 @@
 # Math Quiz Generator
 
-🎉 **Live Demo**: [https://martinw500.github.io/Math-Quiz-Generator](https://martinw500.github.io/Math-Quiz-Generator)
+**Live Webpage**: [https://martinw500.github.io/Math-Quiz-Generator](https://martinw500.github.io/Math-Quiz-Generator)
 
 A modern web-based math quiz application with a React frontend and Python Flask backend.
 
@@ -15,11 +15,8 @@ A modern web-based math quiz application with a React frontend and Python Flask 
 - ➕ Basic operations: Addition, Subtraction
 - ✖️ Advanced operations: Multiplication, Division
 - 🔺 Complex operations: Square roots, Exponents
-- 📐 **Mathematical Notation**: Proper display of exponents (2⁴) and square roots (√16) using MathJax
 - 🧠 **Smart difficulty scaling** - Higher difficulties favor complex operations
 - 📊 Real-time progress tracking
-- 🎨 Modern, responsive UI with smooth animations
-- 📱 Works on desktop and mobile devices
 
 ## Tech Stack
 
@@ -38,7 +35,7 @@ A modern web-based math quiz application with a React frontend and Python Flask 
 
 This project is also available as a **frontend-only version** deployed on GitHub Pages:
 
-- **Live Demo**: [martinw500.github.io/Math-Quiz-Generator](https://martinw500.github.io/Math-Quiz-Generator)
+- **Webpage**: [martinw500.github.io/Math-Quiz-Generator](https://martinw500.github.io/Math-Quiz-Generator)
 - **Branch**: `gh-pages`
 - **Features**: Same functionality, but runs entirely in the browser without needing a backend server
 
