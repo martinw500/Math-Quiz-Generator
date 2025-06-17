@@ -8,14 +8,14 @@ A modern web-based math quiz application with a React frontend and Python Flask 
 
 - 🎯 **10 Difficulty Levels** with intelligent operation selection
   - Levels 1-3: Basic addition & subtraction with smaller numbers
-  - Levels 4-5: Multiplication & division automatically included
-  - Levels 6-7: Square roots & exponents automatically included
-  - Levels 8-10: Expert level with all operations and large number ranges
+  - Levels 4-5: Multiplication & division automatically included and enforced
+  - Levels 6-7: Square roots & exponents automatically included and enforced
+  - Levels 8-10: Expert level with all operations and maximum complexity
 - 🔢 Variable number of questions (5-25)
 - ➕ Basic operations: Addition, Subtraction
 - ✖️ Advanced operations: Multiplication, Division
 - 🔺 Complex operations: Square roots, Exponents
-- 🧠 **Smart difficulty scaling** - Higher difficulties favor complex operations
+- 🧠 Smart difficulty scaling - Higher difficulties favor complex operations
 - 📊 Real-time progress tracking
 
 ## Tech Stack
@@ -23,31 +23,33 @@ A modern web-based math quiz application with a React frontend and Python Flask 
 ### Frontend
 - **React 18** - Modern UI framework
 - **Styled Components** - CSS-in-JS styling
-- **Axios** - HTTP client for API calls
 - **MathJax** - Mathematical notation rendering
+- **Frontend Quiz Logic** - Self-contained quiz generation for GitHub Pages deployment
 
 ### Backend
 - **Python 3.8+** - Core language
 - **Flask** - Lightweight web framework
 - **Flask-CORS** - Cross-origin resource sharing
 
-## 🌐 GitHub Pages Version
+### Deployment
+- **GitHub Actions** - Automated deployment to GitHub Pages
+- **Dual Mode** - Works both locally (full-stack) and online (frontend-only)
 
-This project is also available as a **frontend-only version** deployed on GitHub Pages:
+## 🌐 Online Version
 
-- **Webpage**: [martinw500.github.io/Math-Quiz-Generator](https://martinw500.github.io/Math-Quiz-Generator)
-- **Branch**: `gh-pages`
-- **Features**: Same functionality, but runs entirely in the browser without needing a backend server
+This project is automatically deployed to GitHub Pages via GitHub Actions:
 
-To switch to the GitHub Pages version:
-```bash
-git checkout gh-pages
-```
+- **Live Site**: [martinw500.github.io/Math-Quiz-Generator](https://martinw500.github.io/Math-Quiz-Generator)
+- **Auto-Deployment**: Automatically updates when you push to the `main` branch
+- **Process**: GitHub Actions builds the React app and deploys it to GitHub Pages
+- **Frontend-Only**: Runs entirely in the browser using JavaScript quiz logic
+
+The online version mirrors all functionality of the local version but doesn't require any installation.
 
 ## Installation & Setup
 
 ### Prerequisites
-- **Node.js** (v16 or higher) - [Download here](https://nodejs.org/)
+- **Node.js** (v18 or higher) - [Download here](https://nodejs.org/)
 - **Python** (v3.8 or higher) - [Download here](https://python.org/)
 
 ### Quick Start (Windows)
@@ -62,16 +64,17 @@ git checkout gh-pages
    ```bash
    start.bat
    ```
-   *This automatically installs dependencies (first time) and starts both servers*
+   *This automatically detects first-time setup, installs dependencies, and starts both servers*
 
-3. **Open your browser:**
-   - Frontend: http://localhost:3000
+3. **Access the application:**
+   - Local: http://localhost:3000
+   - Online: https://martinw500.github.io/Math-Quiz-Generator
 
 ### Development Mode
 ```bash
 dev.bat
 ```
-*For developers: Start backend or frontend individually*
+*Choose to start backend only, frontend only, or quit - meant for development*
 
 ### Manual Setup
 
@@ -93,12 +96,12 @@ npm start
 
 1. **Configure your quiz:**
    - Set difficulty level (1-10)
-     - **Levels 1-3**: Basic addition & subtraction
-     - **Levels 4-5**: Multiplication & division automatically included
-     - **Levels 6-7**: Square roots & exponents automatically included
-     - **Levels 8-10**: Expert level with maximum complexity
+     - **Levels 1-3**: Basic addition & subtraction only
+     - **Levels 4-5**: Multiplication & division automatically enforced (checkboxes auto-checked and disabled)
+     - **Levels 6-7**: Square roots & exponents automatically enforced (checkboxes auto-checked and disabled)
+     - **Levels 8-10**: Expert level with maximum complexity and all operations enforced
    - Choose number of questions (5-25)
-   - Optionally force include advanced operations at lower levels
+   - Manual operation selection available only at lower difficulty levels
 
 2. **Take the quiz:**
    - Answer each math question
@@ -136,8 +139,11 @@ If you encounter errors when running the setup or start scripts, you may need to
 ### Common Issues
 
 - **"Python not found"**: Make sure Python is installed and added to your system PATH
-- **"Node.js not found"**: Make sure Node.js is installed and added to your system PATH
+- **"Node.js not found"**: Make sure Node.js is installed and added to your system PATH  
 - **Port already in use**: Close any applications using ports 3000 or 5000
+- **Dependencies fail to install**: Try running as administrator or check your internet connection
+- **Servers won't start**: Run `dev.bat` to start servers individually for better error diagnosis
+
 
 ## Project Structure
 
@@ -162,9 +168,9 @@ Math-Quiz-Generator/
 │   └── package.json       # Node.js dependencies
 ├── .github/
 │   └── workflows/
-│       └── deploy.yml      # GitHub Pages auto-deployment
-├── start.bat              # One-click setup and start
-├── dev.bat                # Development mode (individual servers)
+│       └── deploy.yml      # GitHub Actions auto-deployment
+├── start.bat              # One-click setup and start (combines old setup + start scripts)
+├── dev.bat                # Development mode (start individual servers)
 ├── DEPLOYMENT.md          # Deployment guide
 ├── .gitignore            # Git ignore rules
 ├── LICENSE               # MIT License
