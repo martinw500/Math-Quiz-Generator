@@ -58,18 +58,20 @@ git checkout gh-pages
    cd Math-Quiz-Generator
    ```
 
-2. **Automated Setup:**
+2. **One-click setup and start:**
    ```bash
-   setup.bat
+   start.bat
    ```
+   *This automatically installs dependencies (first time) and starts both servers*
 
-3. **Start the application:**
-   ```bash
-   start_both.bat
-   ```
-
-4. **Open your browser:**
+3. **Open your browser:**
    - Frontend: http://localhost:3000
+
+### Development Mode
+```bash
+dev.bat
+```
+*For developers: Start backend or frontend individually*
 
 ### Manual Setup
 
