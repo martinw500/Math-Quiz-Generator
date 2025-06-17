@@ -152,14 +152,20 @@ Math-Quiz-Generator/
 │   ├── src/
 │   │   ├── App.js         # Main React component
 │   │   ├── index.js       # React entry point
-│   │   └── components/
-│   │       ├── QuizSetup.js   # Quiz configuration
-│   │       ├── QuizGame.js    # Quiz gameplay
-│   │       └── Results.js     # Results display
+│   │   ├── components/
+│   │   │   ├── QuizSetup.js   # Quiz configuration
+│   │   │   ├── QuizGame.js    # Quiz gameplay
+│   │   │   ├── Results.js     # Results display
+│   │   │   └── MathExpression.js # Math rendering
+│   │   └── utils/
+│   │       └── quizGenerator.js # Frontend quiz logic
 │   └── package.json       # Node.js dependencies
-├── setup.bat              # Automated setup script
-├── start_both.bat         # Start both servers
-├── check_setup.bat        # Diagnostic tool
+├── .github/
+│   └── workflows/
+│       └── deploy.yml      # GitHub Pages auto-deployment
+├── start.bat              # One-click setup and start
+├── dev.bat                # Development mode (individual servers)
+├── DEPLOYMENT.md          # Deployment guide
 ├── .gitignore            # Git ignore rules
 ├── LICENSE               # MIT License
 └── README.md             # This file
