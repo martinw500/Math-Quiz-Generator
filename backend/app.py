@@ -57,11 +57,27 @@ class QuizGenerator:
                 operation_weights.extend([sqrt_exp_weight, sqrt_exp_weight])
               # Choose operator based on weights
             operator_choice = random.choices(operators, weights=operation_weights)[0]
-            
-            # Generate question based on operator
+              # Generate question based on operator
             if operator_choice == '/':
-                # Ensure division results in whole number
-                num1 = num2 * random.randint(1, max(1, max_range // num2))
+                # ALWAYS ensure division results in whole number (no decimals)
+                # Generate divisor first, then create dividend as a multiple
+                if difficulty <= 3:
+                    divisor = random.randint(2, 8)
+                    multiplier = random.randint(1, 10)
+                elif difficulty <= 6:
+                    divisor = random.randint(3, 15)
+                    multiplier = random.randint(2, 25)
+                else:
+                    # For high difficulty, use larger numbers and avoid trivial cases
+                    divisor = random.randint(7, 30)
+                    multiplier = random.randint(5, 100)
+                    # Avoid same-number divisions at high difficulty (like 110/110 = 1)
+                    while multiplier == 1 and difficulty > 5:
+                        multiplier = random.randint(5, 100)
+                
+                # Create dividend as multiple of divisor to ensure whole number result
+                num1 = divisor * multiplier
+                num2 = divisor
             
             if operator_choice == '**':
                 # Adjust exponent ranges based on difficulty
