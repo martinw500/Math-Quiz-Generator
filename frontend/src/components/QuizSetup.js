@@ -46,6 +46,11 @@ const Checkbox = styled.input`
   width: 18px;
   height: 18px;
   accent-color: #667eea;
+  
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
 `;
 
 const StartButton = styled.button`
@@ -82,6 +87,12 @@ function QuizSetup({ onStartQuiz }) {
   const [includeMultDiv, setIncludeMultDiv] = useState(false);
   const [includeSqrtExp, setIncludeSqrtExp] = useState(false);
 
+  // Auto-check checkboxes based on difficulty
+  const isMultDivForced = difficulty >= 4;
+  const isSqrtExpForced = difficulty >= 6;
+  const effectiveMultDiv = isMultDivForced || includeMultDiv;
+  const effectiveSqrtExp = isSqrtExpForced || includeSqrtExp;
+
   const getDifficultyDescription = (level) => {
     if (level <= 2) return "Basic addition & subtraction";
     if (level <= 3) return "Larger numbers with basic operations";
@@ -95,8 +106,8 @@ function QuizSetup({ onStartQuiz }) {
     onStartQuiz({
       difficulty,
       numQuestions,
-      includeMultDiv,
-      includeSqrtExp
+      includeMultDiv: effectiveMultDiv,
+      includeSqrtExp: effectiveSqrtExp
     });
   };
 
@@ -126,19 +137,25 @@ function QuizSetup({ onStartQuiz }) {
         <CheckboxContainer>
           <Checkbox
             type="checkbox"
-            checked={includeMultDiv}
+            checked={effectiveMultDiv}
+            disabled={isMultDivForced}
             onChange={(e) => setIncludeMultDiv(e.target.checked)}
           />
-          <Label>Include Multiplication & Division {difficulty >= 4 ? "(Auto-included at difficulty 4+)" : ""}</Label>
+          <Label style={{ opacity: isMultDivForced ? 0.7 : 1 }}>
+            Include Multiplication & Division {isMultDivForced ? "(Auto-included at difficulty 4+)" : ""}
+          </Label>
         </CheckboxContainer>
 
         <CheckboxContainer>
           <Checkbox
             type="checkbox"
-            checked={includeSqrtExp}
+            checked={effectiveSqrtExp}
+            disabled={isSqrtExpForced}
             onChange={(e) => setIncludeSqrtExp(e.target.checked)}
           />
-          <Label>Include Square Roots & Exponents {difficulty >= 6 ? "(Auto-included at difficulty 6+)" : ""}</Label>
+          <Label style={{ opacity: isSqrtExpForced ? 0.7 : 1 }}>
+            Include Square Roots & Exponents {isSqrtExpForced ? "(Auto-included at difficulty 6+)" : ""}
+          </Label>
         </CheckboxContainer>
       </OptionGroup>
 
