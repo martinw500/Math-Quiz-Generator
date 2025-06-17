@@ -4,7 +4,7 @@ GitHub Actions automatically deploys the React app to GitHub Pages when you push
 
 ## Setup Required
 1. Go to repo Settings → Pages
-2. Set source to "gh-pages" branch
+2. Set source to "GitHub Actions"
 
 ## Manual Deploy (if needed)
 ```bash
