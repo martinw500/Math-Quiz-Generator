@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
-import axios from 'axios';
 import MathExpression from './MathExpression';
+import QuizGenerator from '../utils/quizGenerator';
 
 const GameContainer = styled.div`
   display: flex;
@@ -84,14 +84,22 @@ function QuizGame({ config, onFinish, onReset }) {
   const [score, setScore] = useState(0);
   const [loading, setLoading] = useState(true);
   const [showFeedback, setShowFeedback] = useState(false);
+  const [quizGenerator] = useState(() => new QuizGenerator());
+
   useEffect(() => {
     generateQuiz();
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
-  const generateQuiz = async () => {
+  const generateQuiz = () => {
     try {
-      const response = await axios.post('/api/generate-quiz', config);
-      setQuestions(response.data.questions);
+      // Use local quiz generator instead of API call
+      const quizData = quizGenerator.generateQuiz(
+        config.difficulty,
+        config.numQuestions,
+        config.includeMultDiv,
+        config.includeSqrtExp
+      );
+      setQuestions(quizData.questions);
       setLoading(false);
     } catch (error) {
       console.error('Error generating quiz:', error);
@@ -99,37 +107,38 @@ function QuizGame({ config, onFinish, onReset }) {
     }
   };
 
-  const submitAnswer = async () => {
+  const submitAnswer = () => {
     if (!userAnswer.trim()) return;
 
     try {
-      const response = await axios.post('/api/submit-answer', {
-        userAnswer: parseFloat(userAnswer),
-        correctAnswer: questions[currentQuestion].answer
-      });
+      // Use local answer checking instead of API call
+      const result = quizGenerator.checkAnswer(
+        parseFloat(userAnswer),
+        questions[currentQuestion].answer
+      );
 
-      const isCorrect = response.data.correct;
+      const isCorrect = result.correct;
       
       if (isCorrect) {
         setScore(score + 1);
         setFeedback('Correct! 🎉');
       } else {
-        setFeedback(`Incorrect. The answer was ${response.data.correctAnswer}`);
+        setFeedback(`Incorrect. The answer was ${result.correctAnswer}`);
       }
       
       setShowFeedback(true);
-      
-      setTimeout(() => {
+        setTimeout(() => {
         if (currentQuestion + 1 < questions.length) {
           setCurrentQuestion(currentQuestion + 1);
           setUserAnswer('');
           setShowFeedback(false);
           setFeedback('');
         } else {
+          const finalScore = isCorrect ? score + 1 : score;
           onFinish({
-            score,
+            score: finalScore,
             total: questions.length,
-            percentage: Math.round((score / questions.length) * 100)
+            percentage: Math.round((finalScore / questions.length) * 100)
           });
         }
       }, 1500);
