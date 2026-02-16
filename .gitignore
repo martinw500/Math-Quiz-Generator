@@ -48,6 +48,7 @@ screenshots/
 build/
 dist/
 
-# Dependencies (handled by specific .gitignore files in subdirectories)
-# node_modules/ - handled by frontend/.gitignore
-# __pycache__/ - handled by backend/.gitignore
+# Dependencies
+node_modules/
+__pycache__/
+*.pyc

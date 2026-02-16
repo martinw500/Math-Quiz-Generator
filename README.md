@@ -2,68 +2,42 @@
 
 **Live:** https://martinw500.github.io/Math-Quiz-Generator
 
-A React + Flask math quiz app. Frontend can run standalone (GitHub Pages) or together with the backend locally.
+An interactive math quiz app with multiple game modes, an XP & leveling system, 18 achievements, and detailed performance tracking.
 
 ## Features
 
-- 10 difficulty levels with automatic unlocking of harder operations
-- Operations: +, −, ×, ÷, exponents, square roots
-- Smart scaling: higher levels bias toward complex operations
-- 5–25 questions per quiz, progress + instant feedback
-- Fully client‑side in the deployed (Pages) version
+- **4 Quiz Modes** &mdash; Classic, Speed Round, Endless, Daily Challenge
+- **6 Operation Categories** &mdash; Arithmetic, Multiplication/Division, Exponents/Roots, Fractions, Percentages, Order of Operations
+- **XP & Leveling** &mdash; Earn XP for correct answers (scaled by difficulty, streak, and mode), level up over time
+- **18 Achievements** &mdash; Unlock badges for milestones like perfect scores, streaks, and level-ups
+- **Detailed Stats** &mdash; Per-operation accuracy bars, best streak, lifetime totals, quiz history
+- **Quick Presets** &mdash; One-click configs: Easy Warmup, Times Tables, All Rounder, Expert
+- **Dark / Light Theme** &mdash; Persisted across sessions
+- **Daily Challenge** &mdash; Deterministic seeded quiz, same for everyone each day
+- **Keyboard Shortcuts** &mdash; Enter = submit, Tab = skip, Esc = quit
+- **Performance Grades** &mdash; S/A/B/C/D/F rating based on score and difficulty
+- **Responsive** &mdash; Works on desktop and mobile
 
-Difficulty tiers (auto‑enforced operations):
-1–3 basic | 4–5 add mult/div | 6–7 add roots/exponents | 8–10 all
+## Quick Start
+
+```bash
+npm install
+npm start
+```
+
+Open http://localhost:3000
 
 ## Tech
 
-Frontend: React 18, Styled Components, MathJax
+React 18, Styled Components, MathJax 3
 
-Backend: Python 3.8+, Flask (+ CORS)
+## Deploy
 
-CI / Deploy: GitHub Actions → GitHub Pages (push to `main` builds & deploys)
-
-## Run (Windows)
-
-Fast start (installs on first run):
-```bash
-start.bat
-```
-Then open http://localhost:3000 (or use the live link above).
-
-Dev menu (pick services):
-```bash
-dev.bat
-```
-
-Manual (optional):
-```bash
-cd backend && pip install -r requirements.txt && python app.py
-cd frontend && npm install && npm start
-```
-
-## Usage
-1. Pick difficulty (auto locks advanced ops as levels rise)
-2. Select question count
-3. Answer; feedback + progress shown
-4. View score & retry
-
-## Troubleshooting (quick)
-- Script blocked: run PowerShell as Admin → `Set-ExecutionPolicy RemoteSigned`
-- Port busy: stop other apps on 3000 / 5000
-- Missing deps: rerun `start.bat` or reinstall Node/Python
-- Diagnose separately: `dev.bat`
-
-## Structure (brief)
-```
-backend/ app.py
-frontend/ (React app: components/, quiz logic, MathJax)
-.github/workflows/deploy.yml (Pages build)
-start.bat / dev.bat
-```
+GitHub Actions auto-deploys to GitHub Pages on push to `main`.
 
 ## License
-MIT – see `LICENSE`.
+
+MIT &mdash; see `LICENSE`.
 
 ---
 Made by Martin
